@@ -1,0 +1,47 @@
+# Directorios de salida y compilación
+bin/
+target/
+build/
+out/
+
+# Archivos de configuración del IDE (Eclipse)
+.classpath
+.project
+.settings/
+
+# Archivos de configuración del IDE (IntelliJ IDEA)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Archivos de configuración del IDE (NetBeans)
+nbproject/
+*.form
+
+# Archivos de registro y temporales
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Archivos JAR, WAR, EAR compilados
+*.jar
+*.war
+*.ear
+*.zip
+*.rar
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Directorios de datos locales (si no quieres que los archivos de "data/" se suban)
+# Basado en tu proyecto, es muy probable que NO quieras subir los archivos dentro de 'data/'.
+# data/inscripciones/
+# data/progreso/
+# data/users_data/
+
+
