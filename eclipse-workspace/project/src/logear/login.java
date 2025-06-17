@@ -20,7 +20,7 @@ public class login {
     private static final int ANCHO_IMAGEN = 300;
     
     // 3. Texto principal
-    private static final String TITULO = "BIENVENIDO";
+    private static final String TITULO = "BIENVENIDO A FIGHT CLUB";
     private static final Font FUENTE_TITULO = new Font("Arial", Font.BOLD, 28);
     private static final Color COLOR_TITULO = new Color(50, 50, 50);
     
