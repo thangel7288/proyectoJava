@@ -16,7 +16,7 @@ public class login {
     private static final Color COLOR_FONDO = new Color(240, 240, 240);
     
     // 2. Configuración de imagen (Asegúrate de que 'src/imagenes/karate.jpg' exista)
-    private static final String RUTA_IMAGEN = "/imagenes/karate.jpg"; // <-- RUTA CORREGIDA
+    private static final String RUTA_IMAGEN = "/imagenes/Fightclub.jpg"; // <-- RUTA CORREGIDA
     private static final int ANCHO_IMAGEN = 300;
     
     // 3. Texto principal
