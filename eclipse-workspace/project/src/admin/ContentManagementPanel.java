@@ -1,4 +1,4 @@
-package admin;
+  package admin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -94,7 +94,7 @@ public class ContentManagementPanel {
         searchUserField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                filterUsers(searchUserField.getText()); // Mantiene la llamada al método filterUsers
+                filterUsers(searchUserField.getText());
             }
         });
         userSelectionPanel.add(searchUserField, BorderLayout.NORTH); // Añadir el campo de búsqueda
@@ -119,7 +119,7 @@ public class ContentManagementPanel {
         JTabbedPane contentTabs = new JTabbedPane();
         contentTabs.setFont(new Font("Arial", Font.BOLD, 14));
         contentTabs.setBackground(new Color(60, 70, 85));
-        contentTabs.setForeground(Color.WHITE); // Se mantiene en blanco, no fue especificado para cambiar a negro.
+        contentTabs.setForeground(Color.BLACK); // CAMBIO: Texto de las pestañas a negro
 
         // Pestaña de Grados
         contentTabs.addTab("📈 Gestionar Grados", createGradesManagementPanel());
@@ -571,4 +571,5 @@ public class ContentManagementPanel {
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         button.setFocusPainted(false);
         return button;
-    } }
+    }
+}

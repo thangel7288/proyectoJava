@@ -30,15 +30,13 @@ public class DisciplineManagementPanel {
     private static JTextField instructorField;
     private static JTextField levelField;
 
-    // Botones de acción general
-    private static JButton btnAddDiscipline;
+    // Se elimina el botón btnAddDiscipline.
     private static JButton btnEditDiscipline;
 
     // Botones de acción del formulario
     private static JButton btnSaveDiscipline;
     private static JButton btnCancelEdit;
 
-    // Se elimina el JCheckBox showInactiveCheckbox.
     private static JTextField searchDisciplineField;
 
     public static JPanel createPanel() {
@@ -63,7 +61,6 @@ public class DisciplineManagementPanel {
             BorderFactory.createLineBorder(new Color(80, 90, 105)), "Lista de Disciplinas",
             0, 2, new Font("Arial", Font.BOLD, 14), Color.WHITE)); // Título de borde en blanco
 
-        // El panel searchAndFilterPanel se elimina y el campo de búsqueda se añade directamente
         searchDisciplineField = new JTextField("Buscar disciplina...");
         searchDisciplineField.setFont(new Font("Arial", Font.ITALIC, 13));
         searchDisciplineField.setForeground(Color.GRAY); // Placeholder
@@ -76,7 +73,7 @@ public class DisciplineManagementPanel {
             public void focusGained(FocusEvent e) {
                 if (searchDisciplineField.getText().equals("Buscar disciplina...")) {
                     searchDisciplineField.setText("");
-                    searchDisciplineField.setForeground(Color.BLACK); // CAMBIO: Texto a negro al ganar foco
+                    searchDisciplineField.setForeground(Color.BLACK); // Texto a negro al ganar foco
                     searchDisciplineField.setFont(new Font("Arial", Font.PLAIN, 14));
                 }
             }
@@ -87,7 +84,7 @@ public class DisciplineManagementPanel {
                     searchDisciplineField.setForeground(Color.GRAY); // Placeholder vuelve a gris
                     searchDisciplineField.setFont(new Font("Arial", Font.ITALIC, 13));
                 } else {
-                    searchDisciplineField.setForeground(Color.BLACK); // CAMBIO: Texto a negro al perder foco si tiene contenido
+                    searchDisciplineField.setForeground(Color.BLACK); // Texto a negro al perder foco si tiene contenido
                 }
             }
         });
@@ -132,7 +129,7 @@ public class DisciplineManagementPanel {
         disciplineIdField.setVisible(false);
 
         nameField = new JTextField(20);
-        nameField.setForeground(Color.BLACK); // CAMBIO: Texto del campo de nombre a negro
+        nameField.setForeground(Color.BLACK); // Texto del campo de nombre a negro
         nameField.addFocusListener(new FocusAdapter() { // Añadido para gestionar el color del texto
             @Override public void focusGained(FocusEvent e) { nameField.setForeground(Color.BLACK); }
             @Override public void focusLost(FocusEvent e) { if (nameField.getText().isEmpty()) nameField.setForeground(Color.BLACK); }
@@ -141,7 +138,7 @@ public class DisciplineManagementPanel {
         descriptionArea = new JTextArea(4, 20);
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
-        descriptionArea.setForeground(Color.BLACK); // CAMBIO: Texto del campo de descripción a negro
+        descriptionArea.setForeground(Color.BLACK); // Texto del campo de descripción a negro
         descriptionArea.addFocusListener(new FocusAdapter() { // Añadido para gestionar el color del texto
             @Override public void focusGained(FocusEvent e) { descriptionArea.setForeground(Color.BLACK); }
             @Override public void focusLost(FocusEvent e) { if (descriptionArea.getText().isEmpty()) descriptionArea.setForeground(Color.BLACK); }
@@ -149,21 +146,21 @@ public class DisciplineManagementPanel {
         JScrollPane descriptionScrollPane = new JScrollPane(descriptionArea);
 
         scheduleField = new JTextField(20);
-        scheduleField.setForeground(Color.BLACK); // CAMBIO: Texto del campo de horario a negro
+        scheduleField.setForeground(Color.BLACK); // Texto del campo de horario a negro
         scheduleField.addFocusListener(new FocusAdapter() { // Añadido para gestionar el color del texto
             @Override public void focusGained(FocusEvent e) { scheduleField.setForeground(Color.BLACK); }
             @Override public void focusLost(FocusEvent e) { if (scheduleField.getText().isEmpty()) scheduleField.setForeground(Color.BLACK); }
         });
 
         instructorField = new JTextField(20);
-        instructorField.setForeground(Color.BLACK); // CAMBIO: Texto del campo de instructor a negro
+        instructorField.setForeground(Color.BLACK); // Texto del campo de instructor a negro
         instructorField.addFocusListener(new FocusAdapter() { // Añadido para gestionar el color del texto
             @Override public void focusGained(FocusEvent e) { instructorField.setForeground(Color.BLACK); }
             @Override public void focusLost(FocusEvent e) { if (instructorField.getText().isEmpty()) instructorField.setForeground(Color.BLACK); }
         });
 
         levelField = new JTextField(20);
-        levelField.setForeground(Color.BLACK); // CAMBIO: Texto del campo de nivel a negro
+        levelField.setForeground(Color.BLACK); // Texto del campo de nivel a negro
         levelField.addFocusListener(new FocusAdapter() { // Añadido para gestionar el color del texto
             @Override public void focusGained(FocusEvent e) { levelField.setForeground(Color.BLACK); }
             @Override public void focusLost(FocusEvent e) { if (levelField.getText().isEmpty()) levelField.setForeground(Color.BLACK); }
@@ -195,16 +192,15 @@ public class DisciplineManagementPanel {
         splitPane.setRightComponent(disciplineDetailsPanel);
         panel.add(splitPane, BorderLayout.CENTER);
 
-        // --- Panel Inferior: Botones Generales (Añadir/Editar) ---
+        // --- Panel Inferior: Botones Generales (Solo Editar) ---
         JPanel generalActionButtonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
         generalActionButtonsPanel.setBackground(new Color(45, 55, 70));
         generalActionButtonsPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-        btnAddDiscipline = createAdminButton("➕ Añadir Nueva Disciplina", new Color(34, 197, 94));
+        // Se elimina el botón btnAddDiscipline.
         btnEditDiscipline = createAdminButton("✏️ Editar Disciplina Seleccionada", new Color(59, 130, 246));
 
-        generalActionButtonsPanel.add(btnAddDiscipline);
-        generalActionButtonsPanel.add(btnEditDiscipline);
+        generalActionButtonsPanel.add(btnEditDiscipline); // Solo añadir el botón de editar
 
         panel.add(generalActionButtonsPanel, BorderLayout.SOUTH);
 
@@ -223,20 +219,20 @@ public class DisciplineManagementPanel {
 
                         btnSaveDiscipline.setEnabled(false);
                         btnCancelEdit.setEnabled(false);
-                        btnAddDiscipline.setEnabled(true);
+                        // El botón de añadir disciplina ya no existe, no se habilita
                     } else {
                         clearForm();
                         setFormEditable(false);
                         btnEditDiscipline.setEnabled(false);
                         btnSaveDiscipline.setEnabled(false);
                         btnCancelEdit.setEnabled(false);
-                        btnAddDiscipline.setEnabled(true);
+                        // El botón de añadir disciplina ya no existe
                     }
                 }
             }
         });
 
-        btnAddDiscipline.addActionListener(e -> startAddDiscipline(panel));
+        // Se elimina el action listener de btnAddDiscipline.
         btnEditDiscipline.addActionListener(e -> startEditDiscipline());
 
         btnSaveDiscipline.addActionListener(e -> saveDiscipline(panel));
@@ -252,9 +248,7 @@ public class DisciplineManagementPanel {
         btnEditDiscipline.setEnabled(false);
         btnSaveDiscipline.setEnabled(false);
         btnCancelEdit.setEnabled(false);
-        btnAddDiscipline.setEnabled(true);
-
-
+        // El botón de añadir disciplina ya no existe
         return panel;
     }
 
@@ -264,7 +258,7 @@ public class DisciplineManagementPanel {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setBackground(bgColor);
-        button.setForeground(Color.BLACK); // CAMBIO: Texto de botón a negro
+        button.setForeground(Color.BLACK); // Texto de botón a negro
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         button.setFocusPainted(false);
         return button;
@@ -287,9 +281,6 @@ public class DisciplineManagementPanel {
         System.out.println("DEBUG: allDisciplinesData para filtrar: " + allDisciplinesData.size() + " elementos.");
 
         for (Map<String, String> discipline : allDisciplinesData) {
-            // Se elimina la lógica de filtrado por estado (activo/inactivo)
-            // Ya que el checkbox "Mostrar Inactivas" fue eliminado.
-
             // Lógica de filtrado por texto de búsqueda
             if (isPlaceholderText) { 
                 // No hacer nada, la disciplina pasa el filtro de texto por defecto
@@ -313,7 +304,7 @@ public class DisciplineManagementPanel {
         btnEditDiscipline.setEnabled(false);
         btnSaveDiscipline.setEnabled(false);
         btnCancelEdit.setEnabled(false);
-        btnAddDiscipline.setEnabled(true); // Siempre se puede añadir
+        // El botón de añadir disciplina ya no existe
     }
 
     private static void displayDisciplineDetails(Map<String, String> discipline) {
@@ -344,16 +335,8 @@ public class DisciplineManagementPanel {
         levelField.setEditable(editable);
     }
 
-    private static void startAddDiscipline(JPanel parentPanel) {
-        disciplinesJList.clearSelection();
-        clearForm();
-        setFormEditable(true);
-        btnAddDiscipline.setEnabled(false);
-        btnEditDiscipline.setEnabled(false);
-        btnSaveDiscipline.setEnabled(true);
-        btnCancelEdit.setEnabled(true);
-        nameField.requestFocusInWindow();
-    }
+    // Se elimina el método startAddDiscipline.
+    // private static void startAddDiscipline(JPanel parentPanel) { ... }
 
     private static void startEditDiscipline() {
         if (disciplinesJList.getSelectedValue() == null) {
@@ -361,7 +344,7 @@ public class DisciplineManagementPanel {
             return;
         }
         setFormEditable(true);
-        btnAddDiscipline.setEnabled(false);
+        // El botón de añadir disciplina ya no existe, no se deshabilita
         btnEditDiscipline.setEnabled(false);
         btnSaveDiscipline.setEnabled(true);
         btnCancelEdit.setEnabled(true);
@@ -383,10 +366,13 @@ public class DisciplineManagementPanel {
 
         boolean success;
         if (idStr.isEmpty()) { // Es una nueva disciplina (ADD)
-            success = DataBase.añadirDisciplina(name, description, schedule, instructor, level);
-            if (success) {
-                JOptionPane.showMessageDialog(parentPanel, "Disciplina '" + name + "' añadida con éxito.");
-            }
+            // Esta rama del IF ya no debería ser alcanzable si se eliminó el botón "Añadir".
+            // Sin embargo, si se deja el método para la posibilidad de añadir desde otro lado,
+            // se mantendría la llamada. Dado el contexto, solo se enfoca en la edición.
+            // Para asegurar la coherencia con "solo editar", se asume que solo se llamará
+            // para edición (idStr no vacío). Si se presiona "Guardar" sin ID, se considera error.
+            JOptionPane.showMessageDialog(parentPanel, "Error: No se puede añadir una nueva disciplina sin un ID existente.", "Error de Operación", JOptionPane.ERROR_MESSAGE);
+            return;
         } else { // Es una disciplina existente (EDIT)
             int id = Integer.parseInt(idStr);
             success = DataBase.actualizarDisciplina(id, name, description, schedule, instructor, level);
@@ -400,7 +386,7 @@ public class DisciplineManagementPanel {
             applyDisplayFilter(); // Re-aplicar el filtro para actualizar la vista
             clearForm();
             setFormEditable(false);
-            btnAddDiscipline.setEnabled(true);
+            // El botón de añadir disciplina ya no existe
             btnEditDiscipline.setEnabled(false);
             btnSaveDiscipline.setEnabled(false);
             btnCancelEdit.setEnabled(false);
@@ -422,7 +408,7 @@ public class DisciplineManagementPanel {
             clearForm();
         }
         setFormEditable(false);
-        btnAddDiscipline.setEnabled(true);
+        // El botón de añadir disciplina ya no existe
         btnEditDiscipline.setEnabled(false);
         btnSaveDiscipline.setEnabled(false);
         btnCancelEdit.setEnabled(false);
@@ -451,7 +437,6 @@ public class DisciplineManagementPanel {
                                                     instructor,
                                                     schedule);
                 
-                // Se elimina la lógica de tachado para disciplinas inactivas
                 if (!isActive) {
                     displayText += "<span style='color:gray;'> (INACTIVA)</span>"; // Muestra solo el texto INACTIVA
                 }
@@ -459,7 +444,7 @@ public class DisciplineManagementPanel {
 
                 setText(displayText);
                 setBorder(new EmptyBorder(5, 10, 5, 10));
-                setForeground(Color.BLACK); // CAMBIO: Texto de la lista a negro
+                setForeground(Color.BLACK); // Texto de la lista a negro
             }
             return this;
         }
