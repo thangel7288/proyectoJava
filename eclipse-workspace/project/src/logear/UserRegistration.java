@@ -5,15 +5,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId; 
-import java.time.format.DateTimeFormatter; 
-import java.time.format.DateTimeParseException; 
+import java.time.ZoneId;    
+import java.time.format.DateTimeFormatter;    
+import java.time.format.DateTimeParseException;    
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Arrays;
 
-import com.toedter.calendar.JDateChooser; 
+import com.toedter.calendar.JDateChooser;    
 
 public class UserRegistration {
 
@@ -65,13 +65,13 @@ public class UserRegistration {
         dateChooserDOB.setPreferredSize(new Dimension(200, 28));
         
         // Deshabilitar fechas futuras en el calendario (Solo fechas hasta hoy)
-        dateChooserDOB.setMaxSelectableDate(new Date()); 
+        dateChooserDOB.setMaxSelectableDate(new Date());    
 
 
         JButton btnRegister = new JButton("REGISTRAR");
         btnRegister.setBackground(new Color(34, 197, 94));
         btnRegister.setFont(buttonFont);
-        btnRegister.setForeground(Color.BLACK); // <-- Cambiado a Color.BLACK
+        btnRegister.setForeground(Color.BLACK);
 
         JButton btnBack = new JButton("VOLVER");
         btnBack.setBackground(new Color(255, 100, 100));
@@ -83,16 +83,27 @@ public class UserRegistration {
             char[] password = txtPass.getPassword();
             char[] confirmPassword = txtConfirmPass.getPassword();
             String document = txtDocument.getText().trim();
-            Date dobDate = dateChooserDOB.getDate(); 
+            Date dobDate = dateChooserDOB.getDate();    
 
             if (validateRegistration(frame, username, password, confirmPassword, document, dobDate)) {
                 String dobString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(dobDate);
 
-                UserLogin.saveNewUser(username, new String(password), document, dobString);
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // CAMBIO CRÍTICO AQUÍ: Llamar directamente a DataBase.registrarUsuario
+                // y verificar su resultado.
+                // Se elimina la llamada a UserLogin.saveNewUser(username, new String(password), document, dobString);
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                boolean registrationSuccess = DataBase.registrarUsuario(username, new String(password), document, dobString);
                 
-                JOptionPane.showMessageDialog(frame, "¡Registro exitoso!\nAhora puedes iniciar sesión.", "Registro Completado", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();
-                UserLogin.showLoginWindow(); 
+                if (registrationSuccess) {
+                    JOptionPane.showMessageDialog(frame, "¡Registro exitoso!\nAhora puedes iniciar sesión.", "Registro Completado", JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                    UserLogin.showLoginWindow();    
+                } else {
+                    // Si DataBase.registrarUsuario devuelve false, es porque ya mostró un JOptionPane con el error.
+                    // No es necesario mostrar otro JOptionPane aquí, solo evitar el dispose del frame.
+                    // (Ej. "El usuario ya existe.", "El documento ya está registrado.")
+                }
             }
             Arrays.fill(password, '\0');
             Arrays.fill(confirmPassword, '\0');
@@ -104,7 +115,7 @@ public class UserRegistration {
         });
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8, 8, 8, 8); 
+        gbc.insets = new Insets(8, 8, 8, 8);    
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
@@ -143,7 +154,7 @@ public class UserRegistration {
             JOptionPane.showMessageDialog(parentFrame, "El usuario debe tener al menos 5 caracteres.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (DataBase.usuarioExiste(username)) { 
+        if (DataBase.usuarioExiste(username)) {    
             JOptionPane.showMessageDialog(parentFrame, "El usuario '" + username + "' ya existe. Por favor, elige otro.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -151,11 +162,11 @@ public class UserRegistration {
         // Validación de Contraseña
         String pass = new String(password);
         String confPass = new String(confirmPassword);
-        if (pass.length() < 6) { 
+        if (pass.length() < 6) {    
             JOptionPane.showMessageDialog(parentFrame, "La contraseña debe tener al menos 6 caracteres.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        Pattern passwordPattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d).*$"); 
+        Pattern passwordPattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d).*$");    
         Matcher matcher = passwordPattern.matcher(pass);
         if (!matcher.matches()) {
             JOptionPane.showMessageDialog(parentFrame, "La contraseña debe contener al menos una letra mayúscula y un número.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
@@ -167,13 +178,13 @@ public class UserRegistration {
         }
 
         // Validación de Número de Documento
-        if (!document.matches("\\d{9,10}")) { 
+        if (!document.matches("\\d{9,10}")) {    
             JOptionPane.showMessageDialog(parentFrame, "El número de documento debe contener entre 9 y 10 dígitos numéricos.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (DataBase.documentoExiste(document)) { 
-             JOptionPane.showMessageDialog(parentFrame, "El número de documento '" + document + "' ya está registrado.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
-             return false;
+        if (DataBase.documentoExiste(document)) {    
+            JOptionPane.showMessageDialog(parentFrame, "El número de documento '" + document + "' ya está registrado.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            return false;
         }
 
         // Validación de Fecha de Nacimiento
@@ -182,20 +193,20 @@ public class UserRegistration {
             return false;
         }
         
-        LocalDate dob = dobDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); 
+        LocalDate dob = dobDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();    
         LocalDate today = LocalDate.now();
 
-        if (dob.isAfter(today)) { 
+        if (dob.isAfter(today)) {    
             JOptionPane.showMessageDialog(parentFrame, "La fecha de nacimiento no puede ser una fecha futura.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         
         Period age = Period.between(dob, today);
-        if (age.getYears() < 8) { 
+        if (age.getYears() < 8) {    
             JOptionPane.showMessageDialog(parentFrame, "Debes tener al menos 8 años para registrarte.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
-        return true; 
+        return true;    
     }
 }

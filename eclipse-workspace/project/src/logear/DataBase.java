@@ -441,7 +441,8 @@ public class DataBase {
             pstmt.setString(2, nombre_disciplina);
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
                 "Error al reactivar inscripción para " + username_usuario + " en " + nombre_disciplina + ": " + e.getMessage(),
                 "Error de Reactivación", JOptionPane.ERROR_MESSAGE);
@@ -585,11 +586,6 @@ public class DataBase {
             return false;
         }
     }
-
-    // --- MÉTODOS ELIMINADOS: eliminarDisciplina y reactivarDisciplina ---
-    // Ya no se necesitan ya que la funcionalidad de deshabilitar/reactivar se ha marcado como innecesaria.
-    // public static boolean eliminarDisciplina(int id) { ... }
-    // public static boolean reactivarDisciplina(int id) { ... }
 
 
     // --- MÉTODOS PARA GESTIÓN DE GRADOS ---
@@ -786,9 +782,8 @@ public class DataBase {
         }
     }
 
-    // Este método duplicado se ha mantenido pero es redundante y podría ser eliminado.
-    // La versión correcta para registrar usuario con fecha de nacimiento es la primera.
-	public static boolean registrarUsuario(String username, String password, String document, String dobString, String string) {
+	public static boolean registrarUsuario(String username, String password, String document, String dobString,
+			String string) {
 		// TODO Auto-generated method stub
 		return false;
 	}
